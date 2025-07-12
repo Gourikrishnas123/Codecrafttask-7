@@ -31,7 +31,7 @@ def get_tasks():
         return jsonify([
             {
                 'id': task['id'],
-                'text': task['title'],   ✅ match with frontend 'text'
+                'text': task['title'], 
                 'completed': bool(task['completed'])
             } for task in tasks
         ])

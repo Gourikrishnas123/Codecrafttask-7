@@ -24,7 +24,7 @@ function renderTask(task) {
   checkbox.onchange = () => updateTask(task.id, checkbox.checked);
 
   const span = document.createElement('span');
-  span.textContent = task.text;   ✅ using 'text'
+  span.textContent = task.text;   
 
   const deleteBtn = document.createElement('button');
   deleteBtn.textContent = '❌';
@@ -44,7 +44,7 @@ function addTask() {
   fetch(API_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text })   ✅ using 'text'
+    body: JSON.stringify({ text })   
   }).then(res => {
     if (res.ok) {
       inputTask.value = '';

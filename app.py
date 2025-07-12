@@ -12,7 +12,7 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-# Create tasks table if not exists
+
 with get_db_connection() as conn:
     conn.execute("""
         CREATE TABLE IF NOT EXISTS tasks (
@@ -23,7 +23,7 @@ with get_db_connection() as conn:
     """)
     conn.commit()
 
-# Get all tasks
+
 @app.route('/tasks', methods=['GET'])
 def get_tasks():
     with get_db_connection() as conn:
@@ -31,12 +31,12 @@ def get_tasks():
         return jsonify([
             {
                 'id': task['id'],
-                'text': task['title'],  # ✅ match with frontend 'text'
+                'text': task['title'],   ✅ match with frontend 'text'
                 'completed': bool(task['completed'])
             } for task in tasks
         ])
 
-# Add a new task
+
 @app.route('/tasks', methods=['POST'])
 def add_task():
     data = request.get_json()
@@ -49,7 +49,7 @@ def add_task():
         conn.commit()
     return jsonify({'message': 'Task added'}), 201
 
-# Update task status
+
 @app.route('/tasks/<int:task_id>', methods=['PATCH'])
 def update_task(task_id):
     data = request.get_json()
@@ -61,8 +61,7 @@ def update_task(task_id):
         if cur.rowcount == 0:
             return jsonify({'error': 'Task not found'}), 404
     return jsonify({'message': 'Task updated'})
-
-# Delete task
+    
 @app.route('/tasks/<int:task_id>', methods=['DELETE'])
 def delete_task(task_id):
     with get_db_connection() as conn:
